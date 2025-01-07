@@ -1,0 +1,72 @@
+-------------------- slam_toolbox -------------------- 
+On Workstation:
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+
+On Robot:
+ros2 launch ldlidar_stl_ros2 ld06.launch.py
+
+On Robot:
+v4l2-ctl -d /dev/video0 -p 5
+ros2 run v4l2_camera v4l2_camera_node
+
+On Workstation:
+ros2 launch linorobot2_description description.launch.py
+ros2 launch sam_bot_description display.launch.py
+
+On Workstation:
+ros2 launch turtlebot4_navigation slam.launch.py sync:=false
+
+On Workstation:
+ros2 launch nav2_bringup rviz_launch.py
+
+On Workstation:
+ros2 run nav2_map_server map_saver_cli -f ~/ros2_ws/src/maps/map --free 0.196 --ros-args -p save_map_timeout:=5000.0
+-----------------------------------------------------------
+When mapping artifacts can be left from the legs of the table. Clean these up with a graphics program.
+------------------------ nav2-----------------------------
+On Workstation:
+ros2 run teleop_twist_keyboard teleop_twist_keyboard
+
+On Robot:
+ros2 launch ldlidar_stl_ros2 ld06.launch.pyros2 launch nav2_bringup rviz_launch.py
+
+On Robot:
+v4l2-ctl -d /dev/video0 -p 5
+ros2 run v4l2_camera v4l2_camera_node
+
+On Robot:
+ros2 run py_pubsub talker
+
+On Workstation:
+ros2 launch linorobot2_description description.launch.py
+ros2 launch sam_bot_description display.launch.py
+
+On Workstation:
+ros2 launch turtlebot4_navigation localization.launch.py map:=/home/camp/ros2_ws/src/maps/map.yaml
+
+On Workstation:
+ros2 launch turtlebot4_navigation nav2.launch.py
+
+On Workstation:
+ros2 launch nav2_bringup rviz_launch.py
+------------------------------------------------------------
+----------------------------------------------------------------------------------------
+ros2 action send_goal /undock irobot_create_msgs/action/Undock "{}"
+ros2 action send_goal /dock irobot_create_msgs/action/Dock "{}"
+----------------------------------------------------------------------------------------
+
+------------------------------------ snip -------------------------------------
+ros2 service call /local_costmap/clear_entirely_local_costmap nav2_msgs/srv/ClearEntireCostmap
+------------------------------------ snip -------------------------------------
+ros2 service call /global_costmap/clear_entirely_global_costmap nav2_msgs/srv/ClearEntireCostmap
+------------------------------------ snip -------------------------------------
+
+Using view_frames
+ros2 run tf2_tools view_frames
+
+find . -name sam_bot_description.urdf
+
+change resolution on slam_toolbox then costmap
+
+chmod 777
+
